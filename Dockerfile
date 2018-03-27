@@ -1,7 +1,7 @@
 FROM node:8-slim
 
 # crafted and tuned by pierre@ozoux.net and sing.li@rocket.chat
-MAINTAINER buildmaster@rocket.chat
+MAINTAINER kellis5137@gmail.com
 
 RUN groupadd -r rocketchat \
 &&  useradd -r -g rocketchat rocketchat \
@@ -11,17 +11,15 @@ RUN groupadd -r rocketchat \
 VOLUME /app/uploads
 
 # gpg: key 4FD08014: public key "Rocket.Chat Buildmaster <buildmaster@rocket.chat>" imported
-RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 0E163286C20D07B9787EBE9FD7F9D0414FD08104
+#RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 0E163286C20D07B9787EBE9FD7F9D0414FD08104
 
-ENV RC_VERSION 0.61.1
+ENV RC_VERSION 0.63.0
 
 WORKDIR /app
 
-RUN curl -fSL "https://releases.rocket.chat/${RC_VERSION}/download" -o rocket.chat.tgz \
-&&  curl -fSL "https://releases.rocket.chat/${RC_VERSION}/asc" -o rocket.chat.tgz.asc \
-&&  gpg --batch --verify rocket.chat.tgz.asc rocket.chat.tgz \
-&&  tar zxvf rocket.chat.tgz \
-&&  rm rocket.chat.tgz rocket.chat.tgz.asc \
+COPY Rocket.Chat.tar.gz .
+RUN  tar zxvf Rocket.Chat.tar.gz \
+&&  rm Rocket.Chat.tar.gz \
 &&  cd bundle/programs/server \
 &&  npm install
 

@@ -2,7 +2,7 @@
 set -eo pipefail
 
 current="$(
-	git ls-remote --tags https://github.com/RocketChat/Rocket.Chat.git \
+	git ls-remote --tags https://github.com/kellis5137/Rocket.Chat.git \
 		| awk -F 'refs/tags/' '
 			$2 ~ /^v?[0-9]/ {
 				gsub(/^v|\^.*/, "", $2);
